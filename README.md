@@ -1,4 +1,4 @@
-# This was my first contract project made with solidity progamming languge
+# This was my first contract project made with solidity progamming language
 
 What did you learn?
 - I learned a lot of more things about blockchain and contracts safety
