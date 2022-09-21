@@ -1,5 +1,5 @@
 // importing ethers
-const { ethers } = requre("hardhat");
+const { ethers } = require("hardhat");
 
 // making an function to deploy the smart contract
 async function main() {
