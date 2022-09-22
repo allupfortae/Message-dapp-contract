@@ -1,17 +1,16 @@
-const ether = require("@openzeppelin/test-helpers/src/ether");
+const FRONTEND_ADDRESS_FILE = "../sender-dapp-frontend/constants/contract.json";
+const FRONTEND_ABI_FILE = "../sender-dapp-frontend/constants/abi.json";
 const fs = require("fs");
 const { network, ethers } = require("hardhat");
-const FRONTEND_ADDRESS_FILE = "../sender-dapp-frontend/constant/contract.json";
-const FRONTEND_ABI_FILE = "../sender-dapp-frontend/constant/abi.json";
 
-module.exports = async () => {
+async () => {
   if (process.env.UPDATE_FRONTEND) {
-    console.log("updating front end...");
+    console.log("updating frontend...");
     updateContractAddress();
-    updateABI();
+    updateAbi();
   }
 
-  const updateABI = async () => {
+  const updateAbi = async () => {
     const message = await ethers.getContractFactory("SendingMessages");
     fs.writeFileSync(
       FRONTEND_ABI_FILE,
@@ -25,8 +24,8 @@ module.exports = async () => {
     const currentAddress = JSON.parse(
       fs.readFileSync(FRONTEND_ADDRESS_FILE, "utf8")
     );
-    if (chainId in contractAddress) {
-      if (!currentAddress[chainId].included(message.address)) {
+    if (chainId in currentAddress) {
+      if (!currentAddress[chainId].includes(message.address)) {
         currentAddress[chainId].push(message.address);
       }
     }
@@ -37,4 +36,4 @@ module.exports = async () => {
   };
 };
 
-module.exports.tags = ["all", "frontend"];
+module.exports = ["all", "frontend"];
