@@ -16,7 +16,7 @@ contract SendingMessages {
     string  public messageSent;
     /* Events */
     event Delete(string indexed _messages);
-    event Request(address indexed _from, address _to, string _messages);
+    // event Request(address indexed _from, address _to, string _messages);
     event Messaging(address indexed _from, address _to, string _messages);
 
 
@@ -47,9 +47,9 @@ contract SendingMessages {
     // We trying to return the addresses or users
     // sumthing like filtering out the address or users for this function  
     // so like adding a friend and be able to send an message or sumthing
-    function sendFriendRequest(address _to, string memory _message) external {
-    emit Request(msg.sender, _to, _message);
-    }
+    // function sendFriendRequest(address _to, string memory _message) external {
+    // emit Request(msg.sender, _to, _message);
+    // }
 
     // Sending an message
     function sendAnMessage(address _to,  string memory _message) external payable  {
@@ -57,6 +57,10 @@ contract SendingMessages {
         message.push(Message(_to, _message));
         isFriends[_to];
         emit Messaging(msg.sender, _to, _message);
+    }
+
+    function getMessage() public view returns(string memory){
+        return messageSent;
     }
 
     function deleteAnMessage(string memory _message) external {
@@ -71,6 +75,7 @@ contract SendingMessages {
         (bool withdrawed,) = msg.sender.call{value: address(this).balance}("");
         require(withdrawed, "Failed withdraw");
     }
+
 
     receive() external payable{}
     fallback() external payable{}
